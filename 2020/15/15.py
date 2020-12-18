@@ -2,14 +2,6 @@
 import time
 
 
-
-
-
-
-
-
-
-
 def f1(fileName, turnLimit):
     f = open(fileName, 'r')
     nums = [int(n) for n in f.readline().split(',')]
@@ -35,11 +27,7 @@ def f1(fileName, turnLimit):
         turn += 1
     # for k in sorted(d.keys()):
     #     print(k,d[k])
-    for n in nums:
-        if n == 0:
-            print('\n0')
-        else:
-            print(n,end=' ')
+    # print(nums)
     return nums[-1]
 
 
@@ -49,10 +37,16 @@ def f1(fileName, turnLimit):
 
 
 # ####### MAIN #######
-f = 'bis_input.txt'
+f = 'input.txt'
 
 # Part 1
 start_time = time.time()
-print(f1(f, 100))
+print(f1(f, 2020)) # 203
 print("--- %s seconds ---" % (time.time() - start_time))
+
+# Part 2
+# /!\ part 2 is very long
+# start_time = time.time()
+# print(f1(f, 3000000)) # 9007186
+# print("--- %s seconds ---" % (time.time() - start_time))
 
