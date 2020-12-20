@@ -2,9 +2,7 @@
 import time
 
 
-
-
-
+# Part 1 - Game of life for an 3d environment
 
 # add layer of 0 on faces of the cube C if there is a 1 in the face
 # C[x][y][z]
@@ -102,13 +100,6 @@ def expandCube(C : list):
         x_size += 1
 
 
-
-
-
-
-
-
-
 def f1(fileName, cycleLimit):
     f = open(fileName, 'r')
     l = f.readline()
@@ -147,12 +138,76 @@ def f1(fileName, cycleLimit):
     return sum([sum([sum(y) for y in x]) for x in C])
 
 
+
+
+# PART 2 - Generic Function for any dimension (at least >= 2).
+
+# transform a slice (=matrix)(the input) into a <d> dimension array
+def sliceToNDimensionCube(s : list, d : int):
+    if d < 2:
+        print('d invalid.')
+        exit(0)
+    while d > 2:
+        s = [s]
+        d -= 1
+    return s
+
+
+# generate an <d> dimension array of size <size>
+def generateNDimensionArray(d : int, size : list):
+    if d == 0:
+        return 0
+    else:
+        r = []
+        for i in range(size[0]):
+            r.append(generateNDimensionArray(d-1, size[1:]))
+        return  r
+
+
+
+# return a tuple (dimension, [sizes]).
+def getArrayDimensionAndSize(A : list) -> tuple:
+    if not isinstance(A, list):
+        return (0, [])
+    else:
+        r = getArrayDimensionAndSize(A[0])
+        r[1].insert(0, len(A))
+        return (r[0]+1, r[1])
+
+
+
+# for each list L, insert at the start and at the end a list of 0 with the same dimension as other list in L
+def expandNDimensionArray(d : int, A : list):
+    pass
+
+
+
+
+def f2(fileName, cycleLimit, dimension):
+    f = open(fileName, 'r')
+    l = f.readline()
+    s = [] # slice input
+    while l:
+        s.append([1 if c == '#' else 0 for c in l.split()[0]])
+        l = f.readline()
+    C = sliceToNDimensionCube(s, dimension)
+    print(C)
+
+
+
+
 # ####### MAIN #######
-f = 'input.txt'
+f = 'bis_input.txt'
 
 # Part 1
 # Game of life in 3d space
 start_time = time.time()
 print(f1(f, 6))
+print("--- %s seconds ---" % (time.time() - start_time))
+
+# Part 2
+# Game of life in 4d space
+start_time = time.time()
+print(f2(f, 6, 4))
 print("--- %s seconds ---" % (time.time() - start_time))
 
