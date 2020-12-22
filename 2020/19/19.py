@@ -124,9 +124,9 @@ def f1(fileName):
 
 
 # ####### MAIN #######
-f = 'input.txt'
+f = 'input_part1.txt'
 
-# Part 1 - Early Algorithm
+# Part 1-2 - Early Algorithm
 start_time = time.time()
 print(f1(f))
 print("--- %s seconds ---" % (time.time() - start_time))
