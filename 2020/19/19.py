@@ -22,10 +22,24 @@ class EarleyAlgorithm:
     def __init__(self, word : list, rules : dict, source : str):
         self.items = []
         self.word = word
+        self.word_bis = word # only for showItems()
         self.rules = rules # A->ABC|DEF => {A : [[A,B,C], [D,E,F]]}
         # [fromItem, left rule, right rule before point, right rule after point, info (only for log)]
         self.items.append([Item(0, 0, '', [], [source], 'init')])
-    
+    def showItems(self):
+        w = ' ' + self.word_bis
+        i = 0
+        for item in self.items:
+            print('I :', i, w[0])
+            if len(w) > 1:
+                w = w[1:]
+            i += 1
+            print('_'*(50))
+            for l in item:
+                l.show()
+            print('|'+'_'*(48)+'|')
+            print('\n')
+        print('##########\n')
     def analyze(self) -> int:
         while self.prediction() or self.completion():
             pass
@@ -34,23 +48,10 @@ class EarleyAlgorithm:
             self.lecture()
             while self.prediction() or self.completion():
                 pass
-        
-        # i = 0
-        # for item in self.items:
-        #     print('I :', i)
-        #     i += 1
-        #     print('_'*(50))
-        #     for l in item:
-        #         l.show()
-        #     print('|'+'_'*(48)+'|')
-        #     print('\n')
-        # print('##########\n')
         return '' in [item.rule_name for item in self.items[-1]]
-        
     
     def lecture(self):
         self.items.append([])
-        
         c = self.word[0]
         i = len(self.items) - 1
         self.word = self.word[1:]
@@ -84,7 +85,7 @@ class EarleyAlgorithm:
                 item_num = self.items[-1][i].I_num
                 j = 0
                 while j < len(self.items[item_num]):
-                    if self.items[item_num][j].rule_p2 != [] and self.items[item_num][j].rule_p2[0] == self.items[-1][i].rule_name and  [self.items[item_num][j].rule_name, self.items[item_num][j].rule_p1 + [self.items[item_num][j].rule_p2[0]], self.items[item_num][j].rule_p2[1:]] not in [[item.rule_name, item.rule_p1, item.rule_p2] for item in self.items[-1]]:
+                    if self.items[item_num][j].rule_p2 != [] and self.items[item_num][j].rule_p2[0] == self.items[-1][i].rule_name and [self.items[item_num][j].I_num, self.items[item_num][j].rule_name, self.items[item_num][j].rule_p1 + [self.items[item_num][j].rule_p2[0]], self.items[item_num][j].rule_p2[1:]] not in [[item.I_num, item.rule_name, item.rule_p1, item.rule_p2] for item in self.items[-1]]:
                         left = self.items[item_num][j].rule_p1 + [self.items[-1][i].rule_name]
                         if self.items[item_num][j].rule_p2 != []:
                             right = self.items[item_num][j].rule_p2[1:]
@@ -94,8 +95,6 @@ class EarleyAlgorithm:
                         change += 1
                     j += 1
             i += 1
-            if i > 20:
-                break
         return change
 
 
@@ -118,15 +117,20 @@ def f1(fileName):
     while l:
         earley = EarleyAlgorithm(l[0], rules, '0')
         n += earley.analyze()
-        # print(n)
+        # earley.showItems()
         l = f.readline().split()
     return n
 
 
 # ####### MAIN #######
-f = 'input.txt'
-
+f = 'input_part1.txt'
 # Part 1 - Early Algorithm
+start_time = time.time()
+print(f1(f))
+print("--- %s seconds ---" % (time.time() - start_time))
+
+f = 'input_part2.txt'
+# Part 2 - Early Algorithm
 start_time = time.time()
 print(f1(f))
 print("--- %s seconds ---" % (time.time() - start_time))
