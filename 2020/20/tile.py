@@ -19,9 +19,11 @@ class Tile():
             self.border_val[1] |= (self.right[i] == '#') << i
             self.border_val[2] |= (self.bottom[i] == '#') << i
             self.border_val[3] |= (self.left[i] == '#') << i
+        # [top, right, bottom, left]
+        self.neighbors = [[],[],[],[]]
         # [top left, top right, bottom right, bottom left]
         self.corner = [int(self.top[0] == '#'), int(self.top[-1] == '#'), int(self.bottom[-1] == '#'), int(self.bottom[0] == '#')]
-    
+
     def show(self):
         print(self.id)
         print(self.border_val)
@@ -72,3 +74,22 @@ def allPositions(tile : Tile) -> list:
     res.append([''.join([t_clean   [line]    [n-1-column] for column in range(n)]) for line in range(n)])
     res.append([''.join([t_rotation[line]    [n-1-column] for column in range(n)]) for line in range(n)])
     return [Tile(tile.id, t) for t in res]
+
+
+# check wich tiles can be place next to each tiles
+def checkNeighbors(tiles : list) -> None:
+    for i in range(len(tiles)):
+        for j in range(i+1, len(tiles)):
+            if tiles[i].id != tiles[j].id:
+                if tiles[i].border_val[0] == tiles[j].border_val[2]:
+                    tiles[i].neighbors[0].append(tiles[j])
+                    tiles[j].neighbors[2].append(tiles[i])
+                if tiles[i].border_val[1] == tiles[j].border_val[3]:
+                    tiles[i].neighbors[1].append(tiles[j])
+                    tiles[j].neighbors[3].append(tiles[i])
+                if tiles[i].border_val[2] == tiles[j].border_val[0]:
+                    tiles[i].neighbors[2].append(tiles[j])
+                    tiles[j].neighbors[0].append(tiles[i])
+                if tiles[i].border_val[3] == tiles[j].border_val[1]:
+                    tiles[i].neighbors[3].append(tiles[j])
+                    tiles[j].neighbors[1].append(tiles[i])
