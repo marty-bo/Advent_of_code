@@ -70,6 +70,47 @@ def f1(fileName, moves, debug = False):
     
     return cups
 
+
+# Slution from https://www.reddit.com/r/adventofcode/comments/kixh1i/2020_day_23_part_2_is_there_a_faster_way/ggtkn6s/?context=3
+def f2 (fileName, moves, size):
+    f = open(fileName)
+    line = f.readline().split()[0]
+    start = [int(c) for c in line] + [i+1 for i in range(len(line), size)]
+
+    # index = element value, value = next element value
+    cups = [0] * size
+    for i in range(size):
+        cups[start[i]-1] = start[(i+1)%size]
+    
+    # print(start)
+    # print(cups)
+
+    current_val_index = start[0]-1
+    for i in range(moves):
+        three_next = [cups[current_val_index]]
+        three_next.append(cups[three_next[-1]-1])
+        three_next.append(cups[three_next[-1]-1])
+        # print(three_next)
+        
+        dest_value = current_val_index
+        while dest_value in three_next:
+            dest_value -= 1
+            if not dest_value:
+                dest_value = size
+        # print(dest_value)
+
+        cups[current_val_index] = cups[three_next[-1]-1]
+        cups[three_next[-1]-1] = cups[dest_value-1]
+        cups[dest_value-1] = three_next[0]
+        # print(cups)
+        
+        current_val_index = cups[current_val_index]-1
+
+    return cups[0] * cups[cups[0]-1]
+    
+
+
+
 # ####### MAIN #######
 f = 'input.txt'
 moves = 100
@@ -77,5 +118,14 @@ moves = 100
 # Part 1
 start_time = time.time()
 res1 = f1(f, moves)
+print(res1)
+print("--- %s seconds ---" % (time.time() - start_time))
+
+
+# Part 2
+moves = 10000000
+size  =  1000000
+start_time = time.time()
+res1 = f2(f, moves, size)
 print(res1)
 print("--- %s seconds ---" % (time.time() - start_time))
