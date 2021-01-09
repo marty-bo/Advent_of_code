@@ -71,7 +71,7 @@ def f1(fileName, moves, debug = False):
     return cups
 
 
-# Slution from https://www.reddit.com/r/adventofcode/comments/kixh1i/2020_day_23_part_2_is_there_a_faster_way/ggtkn6s/?context=3
+# Solution from https://www.reddit.com/r/adventofcode/comments/kixh1i/2020_day_23_part_2_is_there_a_faster_way/ggtkn6s/?context=3
 def f2 (fileName, moves, size):
     f = open(fileName)
     line = f.readline().split()[0]
