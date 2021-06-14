@@ -35,7 +35,7 @@ def f1(filename, width, height):
 
 
 
-def f1(filename, width, height):
+def f2(filename, width, height):
     f = [int(c) for c in open(filename).readline().split()[0]]
     layers = int(len(f) / (width*height))
     image = [[[0 for w in range(width)] for h in range(height)] for l in range(layers)]
