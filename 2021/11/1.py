@@ -3,20 +3,20 @@ import time
 from Cellular_automata import Cellular_automata as CA
 
 ## -- Pygame
-import pygame
-from pygame.locals import *
+# import pygame
+# from pygame.locals import *
 ## Pygame --
 
 
 ## -- Pygame
-def visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE):
-    for i in range(len(CELLS)):
-        for j in range(len(CELLS[i])):
-            color_val = int(min(CELLS[i][j].energy, 10) * 25.5)
-            color = (color_val, color_val, color_val)
-            pygame.draw.rect(SCREEN, color, Rect(i*CELL_WIDTH_SIZE, j*CELL_HEIGHT_SIZE, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE))
-    CLOCK.tick(FRAME_RATE)
-    pygame.display.flip()
+# def visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE):
+#     for i in range(len(CELLS)):
+#         for j in range(len(CELLS[i])):
+#             color_val = int(min(CELLS[i][j].energy, 10) * 25.5)
+#             color = (color_val, color_val, color_val)
+#             pygame.draw.rect(SCREEN, color, Rect(i*CELL_WIDTH_SIZE, j*CELL_HEIGHT_SIZE, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE))
+#     CLOCK.tick(FRAME_RATE)
+#     pygame.display.flip()
 ## Pygame --
 
 def f1(steps, stop_when_stabilization=True):
@@ -41,17 +41,17 @@ def f1(steps, stop_when_stabilization=True):
 
 
     ## -- Pygame
-    SCREEN_SIZE = (512, 512)
-    CELLS_WIDTH = 10
-    CELLS_HEIGHT = 10
-    CELL_WIDTH_SIZE = SCREEN_SIZE[0] / CELLS_WIDTH
-    CELL_HEIGHT_SIZE = SCREEN_SIZE[1] / CELLS_HEIGHT
-    SCREEN = pygame.Surface
-    CLOCK = pygame.time.Clock()
-    FRAME_RATE = 100
-    pygame.init()
-    SCREEN = pygame.display.set_mode(SCREEN_SIZE)
-    visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE)
+    # SCREEN_SIZE = (512, 512)
+    # CELLS_WIDTH = 10
+    # CELLS_HEIGHT = 10
+    # CELL_WIDTH_SIZE = SCREEN_SIZE[0] / CELLS_WIDTH
+    # CELL_HEIGHT_SIZE = SCREEN_SIZE[1] / CELLS_HEIGHT
+    # SCREEN = pygame.Surface
+    # CLOCK = pygame.time.Clock()
+    # FRAME_RATE = 100
+    # pygame.init()
+    # SCREEN = pygame.display.set_mode(SCREEN_SIZE)
+    # visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE)
     ## Pygame --
 
     total_flashes = 0
@@ -73,9 +73,9 @@ def f1(steps, stop_when_stabilization=True):
                 CELLS[i][j].end_step()
 
         ## -- Pygame
-        visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE)
-        CLOCK.tick(FRAME_RATE)
-        pygame.display.flip()
+        # visualize(CELLS, SCREEN, CELL_WIDTH_SIZE, CELL_HEIGHT_SIZE, CLOCK, FRAME_RATE)
+        # CLOCK.tick(FRAME_RATE)
+        # pygame.display.flip()
         ## Pygame --
         
         step += 1
