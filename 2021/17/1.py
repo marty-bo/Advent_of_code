@@ -21,7 +21,7 @@ def can_reach_target_area(vel_x, vel_y, target_area_x_left, target_area_x_right,
 
 
 
-def f(debug=False):
+def f():
 
     f = open('input.txt')
     line = f.readline()
@@ -77,5 +77,5 @@ def f(debug=False):
 
 print("########################################")
 start_time = time.time()
-f(debug=False)
+f()
 print("----------- %.8s seconds -----------" % (time.time() - start_time))
